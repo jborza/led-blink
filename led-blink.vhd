@@ -4,13 +4,12 @@ USE IEEE.std_logic_unsigned.ALL;
 
 ENTITY LED_ROTATE is
 	PORT (clk : in STD_LOGIC; --50 MHz clock
-		led1 : out STD_LOGIC_VECTOR (11 downto 0) --LEDs
+		led1 : out STD_LOGIC_VECTOR (11 downto 0); --LEDs
 	); --clock
 END LED_ROTATE;
 architecture behavioral of LED_ROTATE is
 
 	signal clk_slow : std_logic;
-
 begin
 	proc_clk_slow : process( clk )
 		variable clk_slow_counter : integer range 0 to 2499999;
