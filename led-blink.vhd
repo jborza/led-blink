@@ -10,11 +10,10 @@ END LED_ROTATE;
 architecture behavioral of LED_ROTATE is
 
 	signal clk_slow : std_logic;
-	
 
 begin
 	proc_clk_slow : process( clk )
-		variable clk_slow_counter : integer range 0 to 999999;
+		variable clk_slow_counter : integer range 0 to 2499999;
 	begin
 		if rising_edge(clk) then
 			clk_slow_counter := clk_slow_counter + 1;
@@ -24,13 +23,34 @@ begin
 				clk_slow <= '0';
 			end if;
 		end if ;
-	end process ; -- p1
+	end process ; -- proc_clk_slow
 
-	-- proc_led : process( clk_slow )
-	-- 	variable index: integer range 0 to 16;
-	-- begin
-	-- 	if index
-	-- end process ; -- proc_led
-led1<="111111111110";
+	 proc_led : process( clk_slow )
+	 	variable index: integer range 0 to 12;
+	 begin
+		if rising_edge(clk_slow) then
+			case index is 
+				when 0 => led1 <= "000011111111";
+				when 1 => led1 <= "000111111110";
+				when 2 => led1 <= "001111111100";
+				when 3 => led1 <= "011111111000";
+				when 4 => led1 <= "111111110000";
+				when 5 => led1 <= "111111100001";
+				when 6 => led1 <= "111111000011";
+				when 7 => led1 <= "111110000111";
+				when 8 => led1 <= "111100001111";
+				when 9 => led1 <= "111000011111";
+				when 10 => led1 <="110000111111";
+				when others => led1 <="100001111111"; --11
+			end case ;
+			if (index < 11) then
+				index := index + 1;
+			else 
+				index := 0;
+			end if;
+		end if;
+	end process ; -- proc_led
+	
+
 
 end behavioral ; -- behavioral
